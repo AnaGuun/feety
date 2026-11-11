@@ -13,3 +13,27 @@ sound.addEventListener('click', async () => {
   const play = () => { const oscillator = context.createOscillator(); const gain = context.createGain(); oscillator.type = 'sine'; oscillator.frequency.value = notes[index++ % notes.length]; gain.gain.setValueAtTime(0, context.currentTime); gain.gain.linearRampToValueAtTime(.055, context.currentTime + .03); gain.gain.exponentialRampToValueAtTime(.001, context.currentTime + .5); oscillator.connect(gain); gain.connect(context.destination); oscillator.start(); oscillator.stop(context.currentTime + .55); };
   play(); melody = setInterval(play, 550); sound.setAttribute('aria-pressed', 'true'); sound.setAttribute('aria-label', 'Turn off birthday melody');
 });
+
+const letterTabs = [...document.querySelectorAll('.letter-tab')];
+function selectLetter(tab) {
+  letterTabs.forEach(item => {
+    const selected = item === tab;
+    item.setAttribute('aria-selected', String(selected));
+    item.tabIndex = selected ? 0 : -1;
+    document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+  });
+}
+letterTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectLetter(tab));
+  tab.addEventListener('keydown', event => {
+    let next;
+    if (event.key === 'ArrowRight') next = (index + 1) % letterTabs.length;
+    if (event.key === 'ArrowLeft') next = (index - 1 + letterTabs.length) % letterTabs.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = letterTabs.length - 1;
+    if (next === undefined) return;
+    event.preventDefault();
+    selectLetter(letterTabs[next]);
+    letterTabs[next].focus();
+  });
+});

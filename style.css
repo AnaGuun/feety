@@ -14,3 +14,12 @@ h1{font-size:clamp(52px,5.4vw,78px)}
 @media(min-width:1500px){.friendship{height:440px}}
 @media(min-width:651px) and (max-width:900px){h1{font-size:54px}.friendship{height:350px;top:54px}.art-top{font-size:8px;letter-spacing:1.1px}}
 @media(max-width:650px){h1{font-size:clamp(46px,12vw,68px)}.dedication{font-size:11px}.date{gap:9px;font-size:9px;letter-spacing:.6px}.date-line{flex-basis:18px}.art{border-radius:32px 32px 24px 24px}.art-top{top:24px;left:12px;right:12px;font-size:8px;letter-spacing:1.1px}.friendship{height:330px;top:50px}.copy>.eyebrow{margin-bottom:26px}}
+
+.letter-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.letter-tab{padding:12px 18px;border:1px solid #b6a4d35c;border-radius:24px;background:#ffffff05;color:#ddd2e9;font:500 12px 'DM Sans',sans-serif;cursor:pointer;transition:background .2s,border-color .2s}
+.letter-tab:hover,.letter-tab[aria-selected="true"]{background:#d6add523;border-color:#e1b6d8;color:#fff0f8}
+.letter-tab:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.letter-panel{margin-top:18px;padding:23px;border:1px solid #b6a4d33b;border-radius:20px;background:#11192b40;max-width:460px}
+.letter-panel h2{font-size:25px;margin:0 0 12px}.letter-panel h2 span{font-size:18px}
+.letter-panel p{font-size:12px;color:var(--muted);line-height:1.8;margin:0 0 13px}.letter-pending{font-size:11px;color:var(--gold)}
+@media(max-width:650px){.letter-tabs{justify-content:center;gap:8px}.letter-tab{font-size:11px;padding:11px 15px}.letter-panel{text-align:left}}
