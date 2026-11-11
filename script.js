@@ -14,26 +14,13 @@ sound.addEventListener('click', async () => {
   play(); melody = setInterval(play, 550); sound.setAttribute('aria-pressed', 'true'); sound.setAttribute('aria-label', 'Turn off birthday melody');
 });
 
-const letterTabs = [...document.querySelectorAll('.letter-tab')];
-function selectLetter(tab) {
-  letterTabs.forEach(item => {
-    const selected = item === tab;
-    item.setAttribute('aria-selected', String(selected));
-    item.tabIndex = selected ? 0 : -1;
-    document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
-  });
-}
-letterTabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => selectLetter(tab));
-  tab.addEventListener('keydown', event => {
-    let next;
-    if (event.key === 'ArrowRight') next = (index + 1) % letterTabs.length;
-    if (event.key === 'ArrowLeft') next = (index - 1 + letterTabs.length) % letterTabs.length;
-    if (event.key === 'Home') next = 0;
-    if (event.key === 'End') next = letterTabs.length - 1;
-    if (next === undefined) return;
-    event.preventDefault();
-    selectLetter(letterTabs[next]);
-    letterTabs[next].focus();
+document.querySelectorAll('[data-letter]').forEach(button => {
+  button.addEventListener('click', () => document.getElementById(button.dataset.letter).showModal());
+});
+document.querySelectorAll('.letter-dialog').forEach(letter => {
+  letter.querySelector('.letter-close').addEventListener('click', () => letter.close());
+  letter.addEventListener('click', event => {
+    const box = letter.getBoundingClientRect();
+    if (event.target === letter && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) letter.close();
   });
 });
