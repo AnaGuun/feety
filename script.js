@@ -15,12 +15,48 @@ sound.addEventListener('click', async () => {
 });
 
 document.querySelectorAll('[data-letter]').forEach(button => {
-  button.addEventListener('click', () => document.getElementById(button.dataset.letter).showModal());
+  button.addEventListener('click', () => { dialog.close(); document.getElementById(button.dataset.letter).showModal(); });
 });
 document.querySelectorAll('.letter-dialog').forEach(letter => {
+  letter.addEventListener('close', () => { dialog.showModal(); document.querySelector('[data-letter="' + letter.id + '"]').focus(); });
   letter.querySelector('.letter-close').addEventListener('click', () => letter.close());
   letter.addEventListener('click', event => {
     const box = letter.getBoundingClientRect();
     if (event.target === letter && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) letter.close();
   });
+});
+
+const saveButton = document.querySelector('#save-png');
+const saveStatus = document.querySelector('#save-status');
+saveButton.addEventListener('click', async () => {
+  saveButton.disabled = true;
+  saveStatus.textContent = 'Creating your PNG…';
+  let url;
+  try {
+    await document.fonts.ready;
+    const width = document.documentElement.clientWidth;
+    const height = Math.max(document.body.scrollHeight, document.documentElement.clientHeight);
+    const canvas = await html2canvas(document.body, {
+      backgroundColor: '#171a2a',
+      scale: Math.min(2, Math.sqrt(12000000 / (width * height))),
+      width, height, windowWidth: width, scrollX: 0, scrollY: 0,
+      logging: false,
+      onclone: clonedDocument => { clonedDocument.querySelectorAll('dialog').forEach(item => item.remove()); }
+    });
+    const blob = await new Promise((resolve, reject) => canvas.toBlob(value => value ? resolve(value) : reject(new Error('PNG could not be created.')), 'image/png'));
+    url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Giullia-birthday-book.png';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    saveStatus.textContent = 'Your PNG is ready. Check your downloads.';
+  } catch (error) {
+    saveStatus.textContent = 'The PNG could not be saved. Please try again.';
+    console.error('PNG export failed:', error);
+  } finally {
+    if (url) setTimeout(() => URL.revokeObjectURL(url), 60000);
+    saveButton.disabled = false;
+  }
 });
