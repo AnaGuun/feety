@@ -41,3 +41,10 @@ h1{font-size:clamp(52px,5.4vw,78px)}
 @media(max-width:650px){#book-dialog .letter-buttons{flex-direction:column;align-items:center}#book-dialog .letter-button{flex:none;width:min(100%,240px);min-height:115px}}
 
 .pdf-download{display:block;width:fit-content;margin:16px auto 0;color:#f5db9e;font-size:13px;font-weight:600;line-height:1.7;text-underline-offset:4px}.pdf-download[hidden]{display:none}
+
+/* Elegant, legible lettering over the flag cards. */
+#book-dialog .letter-button{font-family:'Playfair Display',Georgia,serif;font-size:21px;font-style:italic;font-weight:500;letter-spacing:.15px;line-height:1.4;text-shadow:0 2px 5px #000,0 0 14px #000c}
+#book-dialog .letter-button span{font:18px Georgia,serif;margin-left:8px}
+@media(max-width:650px){#book-dialog .letter-button{font-size:22px}}
+
+.save-pdf{display:inline-block;text-decoration:none;line-height:1.5}.pdf-note{color:var(--muted);font-size:11px!important}
