@@ -49,6 +49,6 @@ h1{font-size:clamp(52px,5.4vw,78px)}
 
 .save-pdf{display:inline-block;text-decoration:none;line-height:1.5}.pdf-note{color:var(--muted);font-size:11px!important}
 
-.music-panel{position:fixed;z-index:10;right:5%;top:135px;width:360px;max-width:90vw;padding:22px;border:1px solid #b6a4d36b;border-radius:22px;background:linear-gradient(135deg,#26283f,#233b67);box-shadow:0 20px 60px #090b2b99}.music-panel[hidden]{display:none}.music-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.music-heading .eyebrow{font-size:8px;letter-spacing:1.5px}.music-heading h2{font-size:28px;margin:12px 0 7px}.music-heading p,.music-help{font-size:11px;color:var(--muted);line-height:1.7}.music-heading button{background:none;border:0;color:var(--cream);font-size:28px;cursor:pointer;padding:0 4px}.music-panel iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;margin-top:14px}.music-panel>a{color:var(--gold);font-size:12px;text-underline-offset:4px}@media(max-width:650px){.music-panel{top:100px;right:4%;max-width:92vw}}
 
-.music-panel audio{display:block;width:100%;margin-top:18px;border-radius:24px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.sound[aria-pressed="true"]{background:#e7c78c20;border-color:#e7c78c;color:#ffe4ad;box-shadow:0 0 15px #e7c78c20}
