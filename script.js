@@ -41,3 +41,32 @@ document.querySelectorAll('.letter-dialog').forEach(letter => {
   });
 });
 
+
+const envelope = document.querySelector('#open-envelope');
+const surprise = document.querySelector('.envelope-surprise');
+const envelopePicture = document.querySelector('#envelope-picture');
+const envelopeStatus = document.querySelector('#envelope-status');
+envelope.addEventListener('click', async () => {
+  if (envelope.disabled) return;
+  envelope.disabled = true;
+  envelopeStatus.textContent = 'Opening your surprise…';
+  try {
+    await envelopePicture.querySelector('img').decode();
+    envelopePicture.hidden = false;
+    envelope.setAttribute('aria-expanded', 'true');
+    surprise.classList.add('is-open');
+    envelopeStatus.textContent = 'Envelope opened. Your assignment meme is ready.';
+    envelopePicture.focus({ preventScroll: true });
+  } catch (error) {
+    envelope.disabled = false;
+    envelopeStatus.textContent = 'The picture could not load. Please try opening the envelope again.';
+  }
+});
+document.querySelector('.reseal-envelope').addEventListener('click', () => {
+  surprise.classList.remove('is-open');
+  envelopePicture.hidden = true;
+  envelope.disabled = false;
+  envelope.setAttribute('aria-expanded', 'false');
+  envelopeStatus.textContent = '';
+  envelope.focus({ preventScroll: true });
+});
